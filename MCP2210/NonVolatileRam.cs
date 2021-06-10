@@ -53,7 +53,6 @@ namespace MCP2210 {
             return desc;
         }
 
-        //SET USB MANUFACTURER NAME
         private void WriteString(byte subcommand, string name) {
             // create the packet
             // command byte length is 64
@@ -62,6 +61,7 @@ namespace MCP2210 {
             //0x60 – Set Chip NVRAM Parameters – command code
             packet[0] = CommandCodes.WriteChipParameters;
             //0x50 – Set USB Manufacturer Name – sub-command code
+            //0x40 – Set USB Product Name – sub-command code
             packet[1] = subcommand;
 
             //0x00 – Reserved
