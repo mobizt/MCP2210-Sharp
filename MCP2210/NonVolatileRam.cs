@@ -93,13 +93,17 @@ namespace MCP2210 {
             byte[] reply = _hidHandler.WriteData(packet);
 
             // check for errors
+            //0x60 – Set Chip NVRAM Parameters – echos back the given command code
             if (reply[0] != CommandCodes.WriteChipParameters) {
                 throw new PacketReplyFormatException();
             }
 
             switch (reply[1]) {
+                //0x00 – Command Completed Successfully – settings written
                 case ReplyStatusCodes.CompletedSuccessfully:
                     break;
+                //0xFB – Blocked Access – The provided password is not matching the one stored in the chip or the
+                //settings are permanently locked.
                 case ReplyStatusCodes.BlockedAccess:
                     throw new AccessBlockedException();
                 default:
