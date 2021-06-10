@@ -30,7 +30,7 @@ namespace Application {
     class Program {
 
         private const int NumberOfBytes = 16;
-        private const string Password = "abaco";
+        private const string Password = "123456";
 
         static void Main() {
             // create device
@@ -94,7 +94,7 @@ namespace Application {
                 chipSettings.RemoteWakeUpEnabled = true;
                 chipSettings.SpiBusReleaseEnable = true;
                 chipSettings.AccessControl = NramChipAccessControl.PasswordProtected;
-                chipSettings.Password = Password;
+                chipSettings.Password = "123456";
                 chipSettings.PinDirections = new PinDirection[] {
                     PinDirection.Output,
                     PinDirection.Output,

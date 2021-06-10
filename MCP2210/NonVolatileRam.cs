@@ -53,26 +53,39 @@ namespace MCP2210 {
             return desc;
         }
 
+        //SET USB MANUFACTURER NAME
         private void WriteString(byte subcommand, string name) {
             // create the packet
+            // command byte length is 64
             byte[] packet = new byte[Constants.PacketsSize];
+
+            //0x60 – Set Chip NVRAM Parameters – command code
             packet[0] = CommandCodes.WriteChipParameters;
+            //0x50 – Set USB Manufacturer Name – sub-command code
             packet[1] = subcommand;
+
+            //0x00 – Reserved
+            //packet[2] = 0;
+            //0x00 – Reserved
+            //packet[3] = 0;
 
             // set the length of the string
             int length = name.Length * 2 + 2;
+
+            //Total USB String Descriptor Length (this is the length of the Manufacturer string, multiplied by 2 + 2)
             packet[4] = (byte)(length);
 
             // from manual DS22288A-page 20: always fill the 6th byte with 0x03
+            //USB String Descriptor ID – always fill with 0x03
             packet[5] = 0x03;
 
             // set the string
+            //fill the unicode Character Low Byte followed by High Byte for each char
             byte[] nameBytes = Encoding.Unicode.GetBytes(name);
             for (int i = 0; i < nameBytes.Length; i++) {
                 if (i > Constants.PacketsSize) {
                     break;
                 }
-
                 packet[6 + i] = nameBytes[i];
             }
 
