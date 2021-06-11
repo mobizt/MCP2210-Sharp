@@ -94,7 +94,7 @@ namespace Application {
                 chipSettings.RemoteWakeUpEnabled = true;
                 chipSettings.SpiBusReleaseEnable = true;
                 chipSettings.AccessControl = NramChipAccessControl.PasswordProtected;
-                chipSettings.Password = "123456";
+                chipSettings.Password = Password;
                 chipSettings.PinDirections = new PinDirection[] {
                     PinDirection.Output,
                     PinDirection.Output,

@@ -51,9 +51,9 @@ namespace MCP2210 {
                 }
 
                 // read the directions
-                PinDirection[] direction = new PinDirection[Constants.NumberOfGeneralPorpouseLines];
+                PinDirection[] direction = new PinDirection[Constants.NumberOfGeneralPurposeLines];
                 ushort directionValue = BitConverter.ToUInt16(reply, 4);
-                for (int i = 0; i < Constants.NumberOfGeneralPorpouseLines; i++) {
+                for (int i = 0; i < Constants.NumberOfGeneralPurposeLines; i++) {
                     int bitMask = (int)Math.Pow(2, i);
                     if ((directionValue & bitMask) == bitMask) {
                         direction[i] = PinDirection.Output;
@@ -67,8 +67,8 @@ namespace MCP2210 {
 
             set {
                 // check input argument
-                if (value == null || value.Length != Constants.NumberOfGeneralPorpouseLines) {
-                    throw new ArgumentException("Expected non-null and " + Constants.NumberOfGeneralPorpouseLines + " length digital direction array.");
+                if (value == null || value.Length != Constants.NumberOfGeneralPurposeLines) {
+                    throw new ArgumentException("Expected non-null and " + Constants.NumberOfGeneralPurposeLines + " length digital direction array.");
                 }
 
                 // create the packet
@@ -77,7 +77,7 @@ namespace MCP2210 {
 
                 PinDirection[] direction = value;
                 ushort directionValue = 0;
-                for (int i = 0; i < Constants.NumberOfGeneralPorpouseLines; i++) {
+                for (int i = 0; i < Constants.NumberOfGeneralPurposeLines; i++) {
                     ushort bitValue = (ushort)Math.Pow(2, i);
                     if (direction[i] == PinDirection.Output) {
                         directionValue |= bitValue;
@@ -115,9 +115,9 @@ namespace MCP2210 {
                 }
 
                 // read the directions
-                bool[] outputValue = new bool[Constants.NumberOfGeneralPorpouseLines];
+                bool[] outputValue = new bool[Constants.NumberOfGeneralPurposeLines];
                 ushort directionValue = BitConverter.ToUInt16(reply, 4);
-                for (int i = 0; i < Constants.NumberOfGeneralPorpouseLines; i++) {
+                for (int i = 0; i < Constants.NumberOfGeneralPurposeLines; i++) {
                     ushort bitMask = (ushort)Math.Pow(2, i);
                     outputValue[i] = (directionValue & bitMask) == bitMask;
                 }
@@ -127,8 +127,8 @@ namespace MCP2210 {
 
             set {
                 // check input argument
-                if (value == null || value.Length != Constants.NumberOfGeneralPorpouseLines) {
-                    throw new ArgumentException("Expected non-null and " + Constants.NumberOfGeneralPorpouseLines + " length output array.");
+                if (value == null || value.Length != Constants.NumberOfGeneralPurposeLines) {
+                    throw new ArgumentException("Expected non-null and " + Constants.NumberOfGeneralPurposeLines + " length output array.");
                 }
 
                 // create the packet
@@ -137,7 +137,7 @@ namespace MCP2210 {
 
                 bool[] outputValue = value;
                 ushort directionValue = 0;
-                for (int i = 0; i < Constants.NumberOfGeneralPorpouseLines; i++) {
+                for (int i = 0; i < Constants.NumberOfGeneralPurposeLines; i++) {
                     ushort bitValue = (ushort)Math.Pow(2, i);
                     if (outputValue[i]) {
                         directionValue |= bitValue;

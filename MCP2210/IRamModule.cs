@@ -130,7 +130,7 @@ namespace MCP2210 {
     /// </summary>
     public enum PinMode {
         /// <summary>
-        /// General porpouse I/O.
+        /// General purpose I/O.
         /// </summary>
         GPIO = 0,
 
@@ -154,7 +154,7 @@ namespace MCP2210 {
     }
 
     /// <summary>
-    /// The dedicated functions of the general porpouse lines.
+    /// The dedicated functions of the general purpose lines.
     /// </summary>
     public enum DedicatedFunction {
         NoInterruptCounting = 0,

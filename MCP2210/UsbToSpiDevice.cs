@@ -79,8 +79,8 @@ namespace MCP2210 {
             get { return Constants.MaximumPasswordLength; }
         }
 
-        public int NumberOfGeneralPorpouseLines {
-            get { return Constants.NumberOfGeneralPorpouseLines; }
+        public int NumberOfGeneralPurposeLines {
+            get { return Constants.NumberOfGeneralPurposeLines; }
         }
 
         public IEepromMemory EEPROM {

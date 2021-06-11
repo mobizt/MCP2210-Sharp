@@ -43,13 +43,13 @@ namespace MCP2210 {
             setup.BitRate = Convert.ToInt64(BitConverter.ToUInt32(packet, 4));
 
             // read the chip select values
-            setup.ActiveChipSelectValues = new bool[Constants.NumberOfGeneralPorpouseLines];
-            setup.IdleChipSelectValues = new bool[Constants.NumberOfGeneralPorpouseLines];
+            setup.ActiveChipSelectValues = new bool[Constants.NumberOfGeneralPurposeLines];
+            setup.IdleChipSelectValues = new bool[Constants.NumberOfGeneralPurposeLines];
 
             ushort idle = BitConverter.ToUInt16(packet, 8);
             ushort active = BitConverter.ToUInt16(packet, 10);
 
-            for (int i = 0; i < Constants.NumberOfGeneralPorpouseLines; i++) {
+            for (int i = 0; i < Constants.NumberOfGeneralPurposeLines; i++) {
                 ushort activeMask = (ushort)Math.Pow(2, i);
                 setup.ActiveChipSelectValues[i] = (active & activeMask) == activeMask;
                 
@@ -97,7 +97,7 @@ namespace MCP2210 {
             // set chip select status
             ushort activeCS = 0;
             ushort idleCS = 0;
-            for (int i = 0; i < Constants.NumberOfGeneralPorpouseLines; i++) {
+            for (int i = 0; i < Constants.NumberOfGeneralPurposeLines; i++) {
                 if (setup.ActiveChipSelectValues[i]) {
                     activeCS += (ushort)(1 << i);
                 }
@@ -154,13 +154,13 @@ namespace MCP2210 {
         private static ChipSettings FromPacketToChipSettings(byte[] packet) {
             // create the current settings instance
             ChipSettings settings = new ChipSettings();
-            settings.PinDirections = new PinDirection[Constants.NumberOfGeneralPorpouseLines];
-            settings.PinModes = new PinMode[Constants.NumberOfGeneralPorpouseLines];
-            settings.DefaultOutput = new bool[Constants.NumberOfGeneralPorpouseLines];
+            settings.PinDirections = new PinDirection[Constants.NumberOfGeneralPurposeLines];
+            settings.PinModes = new PinMode[Constants.NumberOfGeneralPurposeLines];
+            settings.DefaultOutput = new bool[Constants.NumberOfGeneralPurposeLines];
 
             ushort gpioOutput = BitConverter.ToUInt16(packet, 13);
             ushort gpioDirection = BitConverter.ToUInt16(packet, 15);
-            for (int i = 0; i < Constants.NumberOfGeneralPorpouseLines; i++) {
+            for (int i = 0; i < Constants.NumberOfGeneralPurposeLines; i++) {
                 // set pin modes
                 switch (packet[4 + i]) {
                     case 0:
@@ -236,7 +236,7 @@ namespace MCP2210 {
         private static void FromChipSettingstoPacket(ChipSettings settings, ref byte[] packet) {
             ushort gpioOut = 0;
             ushort gpioDir = 0;
-            for (int i = 0; i < Constants.NumberOfGeneralPorpouseLines; i++) {
+            for (int i = 0; i < Constants.NumberOfGeneralPurposeLines; i++) {
                 PinMode mode = settings.PinModes[i];
                 PinDirection direction = settings.PinDirections[i];
 
@@ -329,16 +329,16 @@ namespace MCP2210 {
         /// <param name="subcommand">The sub command configuration. If 0, it's not used.</param>
         protected void ConfigureChip(ChipSettings settings,byte command, byte subcommand = 0) {
             // check if the input argument has 9 length array configuration
-            if (settings.PinDirections == null || settings.PinDirections.Length != Constants.NumberOfGeneralPorpouseLines) {
-                throw new ArgumentException("Expected non null and " + Constants.NumberOfGeneralPorpouseLines + " length pins directions array.");
+            if (settings.PinDirections == null || settings.PinDirections.Length != Constants.NumberOfGeneralPurposeLines) {
+                throw new ArgumentException("Expected non null and " + Constants.NumberOfGeneralPurposeLines + " length pins directions array.");
             }
 
-            if (settings.PinModes == null || settings.PinModes.Length != Constants.NumberOfGeneralPorpouseLines) {
-                throw new ArgumentException("Expected non null and " + Constants.NumberOfGeneralPorpouseLines + " length pins modes array.");
+            if (settings.PinModes == null || settings.PinModes.Length != Constants.NumberOfGeneralPurposeLines) {
+                throw new ArgumentException("Expected non null and " + Constants.NumberOfGeneralPurposeLines + " length pins modes array.");
             }
 
-            if (settings.DefaultOutput == null || settings.DefaultOutput.Length != Constants.NumberOfGeneralPorpouseLines) {
-                throw new ArgumentException("Expected non null and " + Constants.NumberOfGeneralPorpouseLines + " length pins default output array.");
+            if (settings.DefaultOutput == null || settings.DefaultOutput.Length != Constants.NumberOfGeneralPurposeLines) {
+                throw new ArgumentException("Expected non null and " + Constants.NumberOfGeneralPurposeLines + " length pins default output array.");
             }
 
             // create the packet
@@ -403,13 +403,13 @@ namespace MCP2210 {
         protected void ConfigureSpi(SpiSetup setup, byte command, byte subcommand = 0) {
             // check input argument
             if (setup.ActiveChipSelectValues == null ||
-                setup.ActiveChipSelectValues.Length != Constants.NumberOfGeneralPorpouseLines) {
-                throw new ArgumentException("Expected " + Constants.NumberOfGeneralPorpouseLines + " active CS lines.");
+                setup.ActiveChipSelectValues.Length != Constants.NumberOfGeneralPurposeLines) {
+                throw new ArgumentException("Expected " + Constants.NumberOfGeneralPurposeLines + " active CS lines.");
             }
 
             if (setup.IdleChipSelectValues == null ||
-                setup.IdleChipSelectValues.Length != Constants.NumberOfGeneralPorpouseLines) {
-                throw new ArgumentException("Expected " + Constants.NumberOfGeneralPorpouseLines + " idle CS lines.");
+                setup.IdleChipSelectValues.Length != Constants.NumberOfGeneralPurposeLines) {
+                throw new ArgumentException("Expected " + Constants.NumberOfGeneralPurposeLines + " idle CS lines.");
             }
 
             if (setup.BetweenDataDelay < 0) {

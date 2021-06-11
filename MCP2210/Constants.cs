@@ -45,8 +45,8 @@ namespace MCP2210 {
         public const int MaximumPasswordLength = 8;
 
         /// <summary>
-        /// The number of general porpouse lines.
+        /// The number of general purpose lines.
         /// </summary>
-        public const int NumberOfGeneralPorpouseLines = 9;
+        public const int NumberOfGeneralPurposeLines = 9;
     }
 }

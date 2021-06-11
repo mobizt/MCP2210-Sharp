@@ -39,9 +39,9 @@ namespace MCP2210 {
         void Disconnect();
 
         /// <summary>
-        /// The number of general porpouse lines.
+        /// The number of general purpose lines.
         /// </summary>
-        int NumberOfGeneralPorpouseLines { get; }
+        int NumberOfGeneralPurposeLines { get; }
 
         /// <summary>
         /// The maximum password length.
